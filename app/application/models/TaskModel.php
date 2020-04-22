@@ -8,7 +8,7 @@ class TaskModel extends Database
 
     public function __construct() {
         $this->request = $_POST;
-        $this->connection = $this->db_connect();
+        $this->connection = $this->dbConnect();
     }
 
     public function storeProcess() {

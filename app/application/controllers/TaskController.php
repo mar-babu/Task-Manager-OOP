@@ -9,8 +9,8 @@ class TaskController extends BaseController
 
 
     public function index(){
-//        $this->view('task_home');
-        $this->view('dashboard');
+        $this->view('task_home');
+//        $this->view('dashboard');
     }
 
     public function storeTask(){

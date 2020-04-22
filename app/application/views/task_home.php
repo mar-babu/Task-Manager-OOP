@@ -1,8 +1,31 @@
-<?php //include_once "header.php"?>
 
-<div class="container" id="maint">
-    <h1 class="thh">Tasks Manager</h1>
-    <p class="thp">This is a sample project for managing our daily tasks. We're going to use HTML, CSS, PHP, JavaScript and MySQL
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo/Tasks</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+    <style>
+        body {
+            margin-top: 30px;
+        }
+
+        #main {
+            padding: 0px 150px 0px 150px;;
+        }
+
+        #action {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="main">
+    <h1 >Tasks Manager</h1>
+    <p >This is a sample project for managing our daily tasks. We're going to use HTML, CSS, PHP, JavaScript and MySQL
         for this project</p>
 
 
@@ -46,6 +69,7 @@
         </fieldset>
     </form>
 </div>
+</body>
+</html>
 
 
-<?php //include_once "app/application/views/footer.php"?>

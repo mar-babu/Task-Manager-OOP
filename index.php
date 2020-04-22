@@ -1,5 +1,6 @@
 <?php
-//ob_start();
+ob_start();
+session_start();
 
 
 spl_autoload_register(function ($className){
