@@ -62,6 +62,7 @@
 
 
 
+    <p>...</p>
 
 
     <?php if (mysqli_num_rows($tasks) == 0){ ?>
@@ -92,7 +93,7 @@
                 <td><?php echo $values->id ?></td>
                 <td><?php echo $values->task ?></td>
                 <td><?php echo $date ?></td>
-                <td><a href="#">Delete</a> | <a href="#">Edit</a> | <a href="#">Complete</a></td>
+                <td><a href="#">Delete</a> | <a href="#">Edit</a> | <a class="complete" data-taskid="<?php echo $values->id ?>" href="#">Complete</a></td>
             </tr>
             <?php } ?>
             </tbody>
@@ -101,8 +102,8 @@
 
     <?php } ?>
 
-
     <p>...</p>
+
     <h4>Add Tasks</h4>
     <div class="row">
         <div class="col-md-6 offset-3">
@@ -138,11 +139,35 @@
             <input type="text" placeholder="Task Date" id="date" name="date">
 
             <input class="button-primary" type="submit" name="submit">
-<!--                        <input type="hidden" name="action" value="add">-->
+            <input type="hidden" name="action" value="add">
         </fieldset>
     </form>
 </div>
+
+
+<form action="<?php echo url('task','storeTask')?>" method="post" id="completeform">
+    <input type="hidden" id="caction" name="action" value="complete">
+    <input type="hidden" id="taskid" name="taskid">
+
+</form>
+
 </body>
+<script src="app/application/views/plugins/jquery/jquery.min.js"></script>
+
+<script>
+    ;(function ($) {
+        $(document).ready(function () {
+//            alert("Done");
+            $(".complete").on('click',function () {
+                var id = $(this).data("taskid");
+//                alert(id);
+                $("#taskid").val(id);
+                $("#completeform").submit();
+            });
+
+        });
+    })(jQuery);
+</script>
 </html>
 
 

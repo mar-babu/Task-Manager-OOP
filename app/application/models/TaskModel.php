@@ -12,14 +12,26 @@ class TaskModel extends Database
     }
 
     public function storeProcess() {
-        $task = $this->request['task'];
-        $date = $this->request['date'];
-        $sql = "INSERT INTO tasks(task,date) VALUES ('$task','$date')";
-        $query = $this->connection->query($sql);
-        if (!$query) {
-            return false;
+        $action = $this->request['action'] ?? '';
+        if ('add' == $action){
+            $task = $this->request['task'];
+            $date = $this->request['date'];
+            $sql = "INSERT INTO tasks(task,date) VALUES ('$task','$date')";
+            $query = $this->connection->query($sql);
+            if (!$query) {
+                return false;
+            }  return true;
+        } elseif ('complete' == $action){
+            $taskid = $this->request['taskid'];
+            if ($taskid) {
+                $sql1 = "UPDATE tasks SET complete = 1 WHERE id={$taskid} LIMIT 1";
+                $query1 = $this->connection->query($sql1);
+                if (!$query1) {
+                    return false;
+                }         return true;
+
+            }
         }
-        return true;
 
     }
 
