@@ -9,7 +9,9 @@ class TaskController extends BaseController
 
 
     public function index(){
-        $this->view('task_home');
+        $data['tasks']=(new TaskModel())->getTask();
+        $data['completeTasks']=(new TaskModel())->getCompleteTask();
+        $this->view('task_home',$data);
 //        $this->view('dashboard');
     }
 

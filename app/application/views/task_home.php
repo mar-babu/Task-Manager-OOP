@@ -29,6 +29,79 @@
         for this project</p>
 
 
+    <?php if (mysqli_num_rows($completeTasks) > 0){ ?>
+        <h4>Complete Tasks</h4>
+
+            <table>
+                <thread>
+                    <tr>
+                        <th></th>
+                        <th>Id</th>
+                        <th>Task</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thread>
+                <tbody>
+                <?php
+                while ($values1 = $completeTasks->fetch_object()){
+                    $timestamp = strtotime($values1->date);
+                    $date1 = date("jS M, Y", $timestamp);
+                    ?>
+                    <tr>
+                        <td><input class="label-inline" type="checkbox" value="<?php echo $values1->id?>"></td>
+                        <td><?php echo $values1->id ?></td>
+                        <td><?php echo $values1->task ?></td>
+                        <td><?php echo $date1 ?></td>
+                        <td><a href="#">Delete</a> | <a href="#">Incomplete</a></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+    <?php } ?>
+
+
+
+
+
+    <?php if (mysqli_num_rows($tasks) == 0){ ?>
+        <p>Upcoming Tasks</p>
+    <?php } else { ?>
+
+    <h4>Upcoming Tasks</h4>
+
+    <form >
+        <table>
+            <thread>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>Task</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thread>
+            <tbody>
+            <?php
+            while ($values = $tasks->fetch_object()){
+                $timestamp = strtotime($values->date);
+                $date = date("jS M, Y", $timestamp);
+                ?>
+            <tr>
+                <td><input class="label-inline" type="checkbox" value="<?php echo $values->id?>"></td>
+                <td><?php echo $values->id ?></td>
+                <td><?php echo $values->task ?></td>
+                <td><?php echo $date ?></td>
+                <td><a href="#">Delete</a> | <a href="#">Edit</a> | <a href="#">Complete</a></td>
+            </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </form>
+
+    <?php } ?>
+
+
     <p>...</p>
     <h4>Add Tasks</h4>
     <div class="row">

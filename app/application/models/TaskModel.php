@@ -23,4 +23,16 @@ class TaskModel extends Database
 
     }
 
+    public function getTask() {
+        $sql = "SELECT * FROM tasks WHERE complete = 0 ORDER BY DATE DESC";
+        $query = $this->connection->query($sql);
+        return $query;
+    }
+
+    public function getCompleteTask(){
+        $sql = "SELECT * FROM tasks WHERE complete = 1 ORDER BY DATE DESC";
+        $query1 = $this->connection->query($sql);
+        return $query1;
+    }
+
 }
