@@ -24,9 +24,51 @@ class TaskModel extends Database
         } elseif ('complete' == $action){
             $taskid = $this->request['taskid'];
             if ($taskid) {
-                $sql1 = "UPDATE tasks SET complete = 1 WHERE id={$taskid} LIMIT 1";
-                $query1 = $this->connection->query($sql1);
-                if (!$query1) {
+                $sql = "UPDATE tasks SET complete = 1 WHERE id={$taskid} LIMIT 1";
+                $query = $this->connection->query($sql);
+                if (!$query) {
+                    return false;
+                }         return true;
+
+            }
+        }elseif ('incomplete' == $action){
+            $taskid = $this->request['taskid'];
+            if ($taskid) {
+                $sql = "UPDATE tasks SET complete = 0 WHERE id={$taskid} LIMIT 1";
+                $query = $this->connection->query($sql);
+                if (!$query) {
+                    return false;
+                }         return true;
+
+            }
+        }elseif ('delete' == $action){
+            $taskid = $this->request['taskid'];
+            if ($taskid) {
+                $sql = "DELETE FROM tasks WHERE id={$taskid} LIMIT 1";
+                $query = $this->connection->query($sql);
+                if (!$query) {
+                    return false;
+                }         return true;
+
+            }
+        }elseif ('bulkcomplete' == $action){
+            $taskids = $this->request['taskids'];
+            $_taskids = join(",",$taskids);
+            if ($taskids) {
+                $sql = "UPDATE tasks SET complete = 1 WHERE id in ($_taskids)";
+                $query = $this->connection->query($sql);
+                if (!$query) {
+                    return false;
+                }         return true;
+
+            }
+        }elseif ('bulkdelete' == $action){
+            $taskids = $this->request['taskids'];
+            $_taskids = join(",",$taskids);
+            if ($taskids) {
+                $sql = "DELETE FROM tasks WHERE id in ($_taskids)";
+                $query = $this->connection->query($sql);
+                if (!$query) {
                     return false;
                 }         return true;
 

@@ -53,7 +53,7 @@
                         <td><?php echo $values1->id ?></td>
                         <td><?php echo $values1->task ?></td>
                         <td><?php echo $date1 ?></td>
-                        <td><a href="#">Delete</a> | <a href="#">Incomplete</a></td>
+                        <td><a class="delete" data-taskid="<?php echo $values1->id ?>" href="#">Delete</a> | <a class="incomplete" data-taskid="<?php echo $values1->id ?>" href="#">Incomplete</a></td>
                     </tr>
                 <?php } ?>
                 </tbody>
@@ -71,7 +71,7 @@
 
     <h4>Upcoming Tasks</h4>
 
-    <form >
+    <form action="<?php echo url('task','storeTask')?>" method="post">
         <table>
             <thread>
                 <tr>
@@ -89,15 +89,22 @@
                 $date = date("jS M, Y", $timestamp);
                 ?>
             <tr>
-                <td><input class="label-inline" type="checkbox" value="<?php echo $values->id?>"></td>
+                <td><input name="taskids[]" class="label-inline" type="checkbox" value="<?php echo $values->id; ?>"></td>
                 <td><?php echo $values->id ?></td>
                 <td><?php echo $values->task ?></td>
                 <td><?php echo $date ?></td>
-                <td><a href="#">Delete</a> | <a href="#">Edit</a> | <a class="complete" data-taskid="<?php echo $values->id ?>" href="#">Complete</a></td>
+                <td><a class="delete" data-taskid="<?php echo $values->id ?>" href="#">Delete</a> | <a href="#">Edit</a> | <a class="complete" data-taskid="<?php echo $values->id ?>" href="#">Complete</a></td>
             </tr>
             <?php } ?>
             </tbody>
         </table>
+        <select name="action" id="bulkaction">
+            <option value="0">With Selected</option>
+            <option value="bulkdelete">Delete</option>
+            <option value="bulkcomplete">Mark as Complete</option>
+        </select>
+        <input class="button-primary" type="submit" value="submit" id="bulksubmit">
+
     </form>
 
     <?php } ?>
@@ -146,9 +153,18 @@
 
 
 <form action="<?php echo url('task','storeTask')?>" method="post" id="completeform">
-    <input type="hidden" id="caction" name="action" value="complete">
+    <input type="hidden" name="action" value="complete">
     <input type="hidden" id="taskid" name="taskid">
+</form>
 
+<form action="<?php echo url('task','storeTask')?>" method="post" id="incompleteform">
+    <input type="hidden" name="action" value="incomplete">
+    <input type="hidden" id="itaskid" name="taskid">
+</form>
+
+<form action="<?php echo url('task','storeTask')?>" method="post" id="deleteform">
+    <input type="hidden" name="action" value="delete">
+    <input type="hidden" id="dtaskid" name="taskid">
 </form>
 
 </body>
@@ -163,6 +179,28 @@
 //                alert(id);
                 $("#taskid").val(id);
                 $("#completeform").submit();
+            });
+
+            $(".incomplete").on('click',function () {
+                var id = $(this).data("taskid");
+                $("#itaskid").val(id);
+                $("#incompleteform").submit();
+            });
+
+            $(".delete").on('click',function () {
+                if (confirm("Are you sure to delete this task?")) {
+                    var id = $(this).data("taskid");
+                    $("#dtaskid").val(id);
+                    $("#deleteform").submit();
+                }
+            });
+            $(".bulksubmit").on('click',function () {
+                if ($("#bulkaction").val()=='bulkdelete'){
+                    if (!confirm("Are you sure to delete this task?")) {
+                        return false;
+                    }
+                }
+
             });
 
         });

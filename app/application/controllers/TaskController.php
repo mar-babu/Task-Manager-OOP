@@ -22,7 +22,7 @@ class TaskController extends BaseController
         }
 
         if ((new TaskModel())->storeProcess()){
-            $_SESSION['success'] = 'Task Inserted Successfully!!';
+            $_SESSION['success'] = 'Task Inserted or Updated Successfully!!';
             $redirect=url('task','index');
             return header('Location:'.$redirect);
         }
